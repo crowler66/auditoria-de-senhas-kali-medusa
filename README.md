@@ -1,8 +1,8 @@
 # Auditoria de Senhas com Kali Linux e Medusa
 
-Projeto prático desenvolvido como parte dos estudos de cibersegurança na plataforma DIO.
+Projeto prático desenvolvido durante os estudos de Cibersegurança na plataforma DIO.
 
-O objetivo foi montar um laboratório controlado para estudar reconhecimento de serviços, enumeração de compartilhamentos e auditoria de autenticação em serviços FTP e aplicações Web.
+O objetivo foi construir um laboratório controlado para estudar reconhecimento de serviços, enumeração de compartilhamentos e auditoria de autenticação em serviços FTP e aplicações Web.
 
 ## Objetivos do projeto
 
@@ -22,7 +22,7 @@ O objetivo foi montar um laboratório controlado para estudar reconhecimento de 
 | Sistema alvo | Metasploitable 2 |
 | Virtualização | Oracle VirtualBox |
 | Ferramentas | Nmap, Medusa, curl, smbclient e tcpdump |
-| Rede | Host-only |
+| Rede | Host-only (laboratório isolado) |
 | IP Kali | 192.168.56.104 |
 | IP Metasploitable | 192.168.56.102 |
 
@@ -37,10 +37,26 @@ auditoria-senhas-kali-medusa/
 │   ├── 04-analise-smb.md
 │   └── 05-auditoria-dvwa.md
 ├── images/
+│   ├── 01-conectividade-rede.png
+│   ├── 02-1-reconhecimento-nmap.png
+│   ├── 02-2-reconhecimento-nmap.png
+│   ├── 02-3-reconhecimento-nmap.png
+│   ├── 03-nmap-servicos.png
+│   ├── 04-analise-servico-smb.png
+│   ├── 05-1-enumeracao-smb.png
+│   ├── 05-2-enumeracao-smb.png
+│   ├── 06-1-dvwa-acessando.png
+│   ├── 06-2-dvwa-analisando-requisicao.png
+│   └── 06-3-dvwa-verificando-senhas.png
 ├── scripts/
+│   ├── 01-reconhecimento.sh
+│   ├── 02-auditoria-ftp.sh
+│   ├── 03-auditoria-smb.sh
+│   └── 04-auditoria-web.sh
 ├── wordlists/
-│   ├── users.txt
-│   └── pass.txt
+│   ├── lista-senhas.txt
+│   ├── pass.txt
+│   └── users.txt
 └── README.md
 ```
 
@@ -50,9 +66,27 @@ auditoria-senhas-kali-medusa/
 
 Configuração das máquinas virtuais e comunicação entre Kali Linux e Metasploitable 2 em uma rede isolada.
 
+**Evidência de conectividade:**
+
+![Conectividade entre as máquinas](images/01-conectividade-rede.png)
+
+Documentação: [Configuração do ambiente](docs/01-configuracao-ambiente.md).
+
 ### 2. Reconhecimento de rede
 
 Utilização do Nmap para identificar portas abertas e serviços disponíveis no servidor de laboratório.
+
+**Evidências do reconhecimento:**
+
+![Reconhecimento Nmap 1](images/02-1-reconhecimento-nmap.png)
+
+![Reconhecimento Nmap 2](images/02-2-reconhecimento-nmap.png)
+
+![Reconhecimento Nmap 3](images/02-3-reconhecimento-nmap.png)
+
+![Identificação de serviços](images/03-nmap-servicos.png)
+
+Documentação: [Reconhecimento de rede](docs/02-reconhecimento-rede.md).
 
 ### 3. Auditoria FTP
 
@@ -62,11 +96,25 @@ Utilização do Nmap para identificar portas abertas e serviços disponíveis no
 - Identificação da credencial de laboratório `msfadmin`.
 - Observação do tráfego com tcpdump.
 
+Os testes foram realizados exclusivamente no ambiente controlado.
+
+Documentação: [Auditoria FTP](docs/03-auditoria-ftp.md).
+
 ### 4. Análise SMB
 
 - Enumeração de compartilhamentos.
 - Verificação de acesso anônimo.
 - Identificação de permissões e restrições.
+
+**Evidências da análise SMB:**
+
+![Análise do serviço SMB](images/04-analise-servico-smb.png)
+
+![Enumeração SMB 1](images/05-1-enumeracao-smb.png)
+
+![Enumeração SMB 2](images/05-2-enumeracao-smb.png)
+
+Documentação: [Análise SMB](docs/04-analise-smb.md).
 
 ### 5. Auditoria Web com DVWA
 
@@ -75,6 +123,16 @@ Utilização do Nmap para identificar portas abertas e serviços disponíveis no
 - Criação de listas de usuários e senhas.
 - Teste de 16 combinações com curl.
 - Identificação de um redirecionamento diferente para a combinação `admin/password`, indicando provável autenticação bem-sucedida.
+
+**Evidências da auditoria Web:**
+
+![Acesso ao DVWA](images/06-1-dvwa-acessando.png)
+
+![Análise da requisição](images/06-2-dvwa-analisando-requisicao.png)
+
+![Verificação das senhas](images/06-3-dvwa-verificando-senhas.png)
+
+Documentação: [Auditoria Web com DVWA](docs/05-auditoria-dvwa.md).
 
 ## Ferramentas estudadas
 
